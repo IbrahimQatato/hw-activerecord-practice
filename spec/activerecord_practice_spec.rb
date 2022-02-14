@@ -36,22 +36,22 @@ describe 'ActiveRecord practice' do
       before(:each) do
         expect(Customer).to receive(:where).and_call_original
       end
-      xspecify 'anyone with first name Candice' do
+      specify 'anyone with first name Candice' do
         check Customer.any_candice, [24]
       end
-      xspecify 'with valid email (email addr contains "@") (HINT: look up SQL LIKE operator)' do
+      specify 'with valid email (email addr contains "@") (HINT: look up SQL LIKE operator)' do
         check Customer.with_valid_email, [1,2,4,5,7,8,10,11,12,13,14,15,17,18,19,20,23,26,29,30]
       end
-      xspecify 'with .org emails' do
+      specify 'with .org emails' do
         check Customer.with_dot_org_email, [5,7,8,12,23,26,29] 
       end
-      xspecify 'with invalid but nonblank email (does not contain "@")' do
+      specify 'with invalid but nonblank email (does not contain "@")' do
         check Customer.with_invalid_email, [3,6,9,16,22,25,27,28] 
       end
-      xspecify 'with blank email' do
+      specify 'with blank email' do
         check  Customer.with_blank_email, [21,24]
       end
-      xspecify 'born before 1 Jan 1980' do
+      specify 'born before 1 Jan 1980' do
         check Customer.born_before_1980, [3,8,9,11,15,16,17,19,20,24,25,27]
       end
       xspecify 'with valid email AND born before 1/1/1980' do
