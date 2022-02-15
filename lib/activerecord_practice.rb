@@ -34,6 +34,27 @@ class Customer < ActiveRecord::Base
   end
   def self.born_before_1980
     #Customer.where("birthdate < '01-01-1980'")
-    Customer.where("DATE(birthday) < ?", Date.new(1980,1,1))
+    Customer.where("DATE(birthdate) < ?", Date.new(1980,1,1))
+  end
+  def self.with_valid_email_and_born_before_1980
+    Customer.where("DATE(birthdate) < ? AND email LIKE '%@%'", Date.new(1980,1,1))
+  end
+  def self.last_names_starting_with_b
+    Customer.where("last LIKE 'B%'").order("birthdate ASC")
+  end
+  def self.twenty_youngest
+    Customer.order("birthdate DESC").limit("20")
+  end
+  def self.update_gussie_murray_birthdate
+    Customer.where(first: "Gussie", last:"Murray").update_all(birthdate: Date.new(2004,2,8))
+  end
+  def self.change_all_invalid_emails_to_blank
+    Customer.where.not("email LIKE '%@%'").update_all(email: "")
+  end
+  def self.delete_meggie_herman
+    Customer.delete(3)
+  end
+  def self.delete_everyone_born_before_1978
+    Customer.delete_all
   end
 end
